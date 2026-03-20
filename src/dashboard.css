@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f5f6fa;
+  }
+  
+  .dashboard {
+    display: flex;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 220px;
+    background: #fff;
+    padding: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .sidebar li:hover {
+    background: #f1f2f6;
+  }
+  
+  /* Main */
+  .main {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+  }
+  
+  /* Cards */
+  .cards {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .card {
+    flex: 1;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+  }
+  
+  .orange { background: #f2994a; }
+  .teal { background: #2bb3c0; }
+  .dark { background: #1f2a44; }
+  .green { background: #27ae60; }
+  
+  /* Bottom */
+  .bottom {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .chart, .table {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Fake chart */
+  .bar {
+    height: 150px;
+    background: linear-gradient(to top, #2bb3c0, #a0e3ea);
+    margin-top: 10px;
+  }

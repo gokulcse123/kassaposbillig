@@ -6,37 +6,7 @@ import Logo from "../assets/logo.png";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-const handleLogin = async () => {
-  setSuccessMsg("");
-  setErrorMsg("");
 
-  if (!email || !password) {
-    setErrorMsg("Please enter email and password.");
-    return;
-  }
-
-  setLoading(true);
-  try {
-    const response = await fetch("https://your-api-url.com/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.IsSuccess) {
-      setSuccessMsg("Login successful! Redirecting...");
-      // navigate("/dashboard");   // ← add your navigation here
-    } else {
-      setErrorMsg(data.message || "Invalid credentials. Please try again.");
-    }
-  } catch (error) {
-    setErrorMsg("Server error. Please try again later.");
-  } finally {
-    setLoading(false);
-  }
-};
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -78,8 +48,8 @@ const Login = () => {
               {/* Only ONE button */}
               <div className="login-center-buttons">
                 <button type="button"
-                 onClick={handleLogin}
-                 disabled={loading}> {loading ? "Logging in..." : "Log In →"}</button>
+                 
+                 >Log In →</button>
               </div>
             </form>
           </div>
