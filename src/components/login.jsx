@@ -1,6 +1,6 @@
 import React  from "react";
 import "../index.css";
-
+import { useNavigate } from "react-router-dom";
 import Image from "../assets/image.png";
 import Logo from "../assets/logo.png";
 
@@ -9,7 +9,43 @@ import { useState } from "react";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
+  // ✅ API function
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert("Enter Email & Password");
+      return;
+    }
+
+    const olduserid = localStorage.getItem("userid") || "";
+
+    try {
+      const url = `http://13.200.71.164:9001/api/loginApp/LoginSuccessV7?Userid=${email}&Pwd=${password}&olduserid=${olduserid}`;
+      
+      const res = await fetch(url, { method: "POST" });
+      const data = await res.json();
+      console.log("API RESPONSE:", data);
+
+      if (data.ok === true || data.IsSuccess === true) {
+        // Save minimal info
+        if (data.data && data.data.length > 0) {
+          localStorage.setItem("userid", data.data[0].UserId);
+        }
+        localStorage.setItem("username", email);
+
+        // Redirect to dashboard
+        navigate("/dashboard");
+      } else {
+        alert(data.message || "Invalid Username or Password");
+      }
+    } catch (err) {
+      console.error("ERROR:", err);
+      alert("Server Error");
+    }
+  };
   return (
     <div className="login-main">
 
@@ -30,7 +66,11 @@ const Login = () => {
             <form>
               <div className="input-group">
                 <span className="input-icon">✉</span>
-                <input type="email" placeholder="Email address" />
+                <input 
+                   type="email" 
+                   placeholder="Email address"
+                   onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
 
               <div className="pass-input-div input-group">
@@ -38,6 +78,7 @@ const Login = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 {showPassword
                   ? <FaEyeSlash onClick={() => setShowPassword(!showPassword)} />
@@ -47,15 +88,17 @@ const Login = () => {
 
               {/* Only ONE button */}
               <div className="login-center-buttons">
-                <button type="button"
-                 
-                 >Log In →</button>
+              <button type="button" onClick={handleLogin}>
+                        Log In 
+              </button>
               </div>
             </form>
           </div>
 
         </div>
       </div>
+
+      
 
       {/* ✅ RIGHT: IMAGE */}
       <div className="login-left">
